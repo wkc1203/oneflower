@@ -1,0 +1,65 @@
+html,
+body,
+.page {
+  position: relative;
+  height: 100%;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  background: #F8F8F8;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px;
+}
+
+.content {
+  flex-grow: 1;
+  background: url("../img/down.png") no-repeat center center;
+  background-size: contain;
+  background-clip: content-box;
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+.explain {
+  width: 156px;
+  height: 73px;
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  margin-left: -78px;
+  font-size: 15px;
+}
+
+.explain p {
+  text-align: left;
+}
+
+.brand {
+  width: 238px;
+  height: 55px;
+  position: fixed;
+  left: 50%;
+  margin-left: -119px;
+  bottom: 57px;
+  background-color: #FF500D;
+  border-radius: 8px;
+  display: flex;
+  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-left {
+  width: 35px;
+  height: 35px;
+}
+
+.brand-right {
+  flex-grow: 1;
+}

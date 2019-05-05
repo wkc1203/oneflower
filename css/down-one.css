@@ -1,0 +1,88 @@
+html,
+body,
+.page {
+  position: relative;
+  height: 100%;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.footer {
+  flex-shrink: 0;
+}
+
+.pic {
+  width: 155px;
+  height: 145px;
+  margin: 50px auto 40px auto;
+  background: url("../img/red_packge.png") no-repeat;
+  background-size: cover;
+}
+
+.explain {
+  margin-bottom: 14px;
+}
+
+.explain p {
+  text-align: center;
+  font-size: 15px;
+  color: #434343;
+  line-height: 22px;
+}
+
+.explain p span {
+  color: #FF500D;
+}
+
+.operate {
+ text-align: center;
+}
+
+.operate .inviteCode {
+  width: 195px;
+  height: 92px;
+  margin: 0 auto 35px auto;
+  color: #fff;
+  font-size: 26px;
+  background: url("../img/bg_invitation_code.png") no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.operate .inviteCode .code {
+  position: absolute;
+  top: 40px;
+  left: 74px;
+  text-align: left;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #FF500D;
+  color: #fff;
+  width: 205px;
+  height: 44px;
+  line-height: 44px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 17px;
+  border-radius: 22px;
+}
+
+.btn:hover {
+  color: #fff;
+}

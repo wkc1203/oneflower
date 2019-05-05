@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang = "en" >
+<head >
+  <meta charset = "UTF-8" >
+  <meta name = "viewport"
+        content = "width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" >
+
+  <title ></title >
+
+  <link rel = "stylesheet" href = "./css/reset.css" >
+  <link rel = "stylesheet" href = "./css/swiper.min.css" >
+  <link rel = "stylesheet" href = "./css/pingtuan.css" >
+</head >
+<body >
+<div class = "pages" >
+  <!-- <div class="titleheard">拼购详情</div> -->
+  <div class="contents">
+
+      <div class = "toptitle">
+        <!-- <div class = "titleleft"> -->
+          <img src = '' id = 'goodsHeadImg' />
+        <!-- </div> -->
+        <div class = "titleright">
+          <h1 id = 'standardName' ></h1>
+          <div class = 'priceclass'>
+            <span id = 'groupBuyingPrice' ></span>
+            <span id = 'fullPeople' ></span>
+          </div>
+          <div class="pingsheng">
+            拼团省<span id = 'money' ></span>元
+          </div>
+        </div>
+        <input type="hidden" id="params">
+      </div>
+
+      <div class="buttontitle">
+        <div class="captionphoto">
+          <img src = "" id = 'userPhoto' />
+          <img src = "" id = 'zuyuanPhoto1'>
+        </div>
+        <div class="differentman" style="font-size: 13px;">
+          <span id = "pingtuanend">拼团中，还差<span id = 'remainingPeople' ></span><span id="danwei"></span>，<span id = 'endTime'></span>结束</span>
+        </div>
+        <div class = "btn link-button" >立即参团</div >
+        <div style="font-size: 13px;">
+          <span class="yaoqing">邀请好友拼团</span><span>>人满分别发货>人不满自动退款</span>
+        </div>
+      </div>
+    </div>
+</div >
+<script type = "text/javascript" src = "./js/jquery.min.js" ></script >
+<script type = "text/javascript" src = "./js/swiper.min.js" ></script >
+<script type = "text/javascript" src="./js/jquery.countdown.js"></script>
+<script src="./js/vconsole.min.js"></script >
+<script src="./js/server.js"></script >
+<script type = "text/javascript" >
+  $(document).ready(function () {
+    function getParam (param) {
+      // let query = 'http://10.0.11.241:8080/app/activityGroup/detailsPurchase?tokenShare=e15cdc24758b4912aeb9cd2cf53d83bc'
+      let query = window.location.search
+      let iLen = param.length
+      let iStart = query.indexOf(param)
+      if(iStart == -1) {
+        return ""
+      }
+      iStart += iLen + 1
+      let iEnd = query.indexOf("&", iStart); //获取第二个参数的其实索引
+      if(iEnd == -1) {
+        return query.substring(iStart); //获取单个参数的参数值
+      }
+      return query.substring(iStart, iEnd); //获取第二个参数的值
+    }
+    
+    function getUrlParam () {
+      var url        = location.search; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("?") !== -1) {
+        var str = url.substr(1);
+        strs    = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+        }
+      }
+      return theRequest;
+    }
+    function isTencent () {
+      var ua    = navigator.userAgent.toLowerCase();
+      var isWx  = ua.indexOf('micromessenger') !== -1;
+      var QQRex = new RegExp(/\s+QQ/ig)
+      var isQQ  = QQRex.test(ua)
+
+      return isWx || isQQ
+    }
+
+    // function skip () {
+    //   const urlData    = getUrlParam()
+    //   const way        = urlData.way ? urlData.way : ''
+    //   const inviteCode = urlData.inviteCode ? urlData.inviteCode : ''
+    //   const url        = way === '1' ? './down-one.html?inviteCode=' + inviteCode : './down-two.html'
+    //   if (isTencent()) {
+    //     return
+    //   }
+    //   window.location.replace(url)
+    // }
+
+
+    function getOs () {
+      var os = ''
+
+      const ua      = navigator.userAgent
+      const windows = ua.match(/(Windows Phone);?[\s\/]+([\d.]+)?/)
+      const android = ua.match(/(Android);?[\s\/]+([\d.]+)?/)
+      const ipad    = ua.match(/(iPad).*OS\s([\d_]+)/)
+      const ipod    = ua.match(/(iPod)(.*OS\s([\d_]+))?/)
+      const iphone  = !ipad && ua.match(/(iPhone\sOS|iOS)\s([\d_]+)/)
+
+      if (windows) {
+        os = 'windows'
+      }
+
+      if (android && !windows) {
+        os = 'android'
+      }
+
+      if (ipad || iphone || ipod) {
+        os = 'ios'
+      }
+
+      return os
+    }
+    // const server = 'http://10.0.11.241:8080/'
+    const tokenShare=getParam('tokenShare')
+    function getPingTuan () {
+      // var data = getParam('tokenShare')
+      var tokenShares = tokenShare ? tokenShare : ''
+      $("#params").val(tokenShare)
+
+      $.ajax({
+        url: server + 'app/activityGroup/detailsPurchase',
+        type: 'POST',
+        data: {
+          tokenShare: tokenShares
+        }
+      })
+        .done(function (res) {
+        if (res.code !== 0) {
+          return
+        }
+
+        var data        = res.object
+        console.log(data.length)
+        var isArray=data instanceof Array ? data.length : data
+        
+        if(isArray){
+          console.log(544)
+          $('#standardName').html(data.standardName)
+          $('#groupBuyingPrice').html('¥' + data.groupBuyingPrice)
+          if(data.regimentWay =="1"){
+            $('#fullPeople').html((data.fullPeople ? data.fullPeople:0) + '人拼团')
+            $('#remainingPeople').html(data.remainingPeople)
+            $("#danwei").html('人')
+          }else{
+            $('#fullPeople').html((data.fullCount ? data.fullCount:0)+ '件拼团')
+            $('#remainingPeople').html(data.remainingCount)
+            $("#danwei").html('件')
+          }
+          $("#goodsHeadImg").attr('src', data.goodsHeadImg)
+          $("#userPhoto").attr('src', data.userPhoto)
+          $('#money').html(data.money)
+          // if(data.fullPeople-1>0){
+          //   imgs=''
+          //   for(i=0;i<data.fullPeople-1;i++){
+          //     imgs += '<img style="width: 30px;" src="./img/pingtuan.png"/>'
+          //   }
+          //   $(".captionphoto").append(imgs)
+          // }
+          $("#zuyuanPhoto1").attr('src', './img/pingtuan.png')
+          const nowTime = new Date().getTime()
+          console.log(nowTime)
+          console.log(nowTime-data.endTime)
+          if(nowTime-data.endTime>0){
+            $('#pingtuanend').html("已结束")
+            // $(".link-button").attr("disabled",true)
+            $(".link-button").off('click')
+            $(".link-button").css('background-color', '#DCDCDC')
+          } else {
+            timedaojis = new Date(data.endTime)
+            $('#endTime').countdown(timedaojis, function (event) {
+              $(this).html(event.strftime('%H:%M:%S之后'));
+            });
+          }
+          
+        }
+        
+      })
+      .fail(function (res) {
+        console.log('获取详情失败')
+      })
+      .always(function (res) {
+      })
+    }
+
+    // 立即参团
+    $('.link-button').on('click', function (e) {
+      e.preventDefault()
+      var urlData    = getUrlParam()
+      var inviteCode = urlData.inviteCode ? urlData.inviteCode : ''
+      // alert("tokenShare="+tokenShare)
+      if (isTencent()) {
+        window.location.href = './pingtuanios.html?tokenShare='+ tokenShare+'&platform=android'
+        return
+      }
+
+      if (getOs() === 'ios') {
+        window.top.location.href ='YZYHAPP://?tokenShare='+ tokenShare
+        window.setTimeout(function(){
+          window.location.href = ios_download
+        },500)
+      } else {
+          // window.location.href = 'ypf://yzyh?tokenShare=' + tokenShare
+          if(getParam("platform") =="android") {
+            var param={"type":"joinPinTuan","tokenShare":tokenShare}
+            var paramstr=JSON.stringify(param);
+            //var paramstr=getParam('tokenShare')
+			//sendMessageToAndroid(paramstr)
+			if (
+				window &&
+				window.objJS &&
+				window.objJS.gotoJump
+				) {
+					window.objJS.gotoJump(paramstr)
+				}
+            //window.android.objJS(paramstr)
+          } else {
+            window.location.href = 'ypf://yzyh?tokenShare=' + getParam('tokenShare')
+			 window.setTimeout(function(){
+            window.location.href = android_download
+          },1000)
+          }
+          
+   
+
+      }
+    })
+    getPingTuan()
+  })
+  
+</script >
+</body >
+</html >

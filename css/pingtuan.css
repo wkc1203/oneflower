@@ -1,0 +1,145 @@
+html,
+body,
+.page {
+  position: relative;
+  height: 100%;
+}
+
+.pages {
+  display: flex;
+  flex-direction: column;
+  /*background: #F8F8F8;*/
+  /*overflow-x: hidden;*/
+  /*overflow-y: auto;*/
+  -webkit-overflow-scrolling: touch;
+}
+
+.contents {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column
+}
+/*.titleheard {
+  width: 68px;
+  height: 24px;
+  font-size: 17px;
+  font-family: PingFang-SC-Medium;
+  font-weight: 500;
+  color: rgba(6,9,34,1);
+  line-height: 24px;
+  margin: 0px auto;
+  margin-top: 30px;
+}*/
+.toptitle {
+  /*width: 250px;*/
+  height: 150px;
+  margin: 24px auto 8px auto;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  position:relative;
+}
+.toptitle:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -80%;
+  height: 8px;
+  right: -80%;
+  background-color: #F8F8F8;
+}
+.titleright {
+  width:auto !important;
+}
+.buttontitle {
+  margin-bottom: 50px;
+  position:relative;
+}
+.buttontitle:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -80%;
+  height: 8px;
+  right: -80%;
+  background-color: #F8F8F8;
+}
+.buttontitle div {
+  text-align: center;
+  font-size: 15px;
+}
+
+/*.titleleft {
+  margin-left: 15px;
+}*/
+#goodsHeadImg {
+  width: 112px;
+  height: 112px;
+  margin:0 15px 12px 15px;
+
+ }
+.yaoqing {
+  color: #FF500D;
+}
+#remainingPeople {
+  color: #FF3E0D;
+}
+#groupBuyingPrice {
+  color: red;
+}
+
+.priceclass {
+  margin-top: 34px;
+  margin-bottom: 14px;
+}
+
+.buttontitle {
+  width: 265px;
+  height: 190px;
+  margin: 18px auto 8px auto;
+}
+.captionphoto {
+  margin-bottom: 12px;
+}
+.differentman {
+  margin-bottom: 20px;
+}
+.kongbai {
+  height: 8px;
+  background-color: #F8F8F8;
+}
+.pingsheng {
+  color:rgba(160,160,160,1);
+}
+
+#fullPeople {
+  margin-left: 14px;
+  color:rgba(160,160,160,1);
+}
+
+#userPhoto, #zuyuanPhoto1 {
+  width: 30px;
+  height: 30px;
+}
+/*立即参团*/
+.btn {
+  display: inline-block;
+  background-color: #FF500D;
+  color: #fff;
+  width: 265px;
+  height: 40px;
+  line-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+  text-align: center;
+  /*position: absolute;*/
+  margin: 0 auto;
+  font-size: 12px;
+  border-radius: 22px;
+}
+.btn:hover {
+  color: #fff;
+  cursor:pointer;
+}
