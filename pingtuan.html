@@ -39,7 +39,7 @@
           <img src = "" id = 'zuyuanPhoto1'>
         </div>
         <div class="differentman" style="font-size: 13px;">
-          <span id = "pingtuanend">拼团中，还差<span id = 'remainingPeople' ></span><span id="danwei"></span>，<span id = 'endTime'></span>结束</span>
+          <span id = "pingtuanend">拼团中，还差<span id = 'remainingPeople' ></span><span id="danwei"></span>，<span id="endday"></span><span id = 'endTime'></span>结束</span>
         </div>
         <div class = "btn link-button" >立即参团</div >
         <div style="font-size: 13px;">
@@ -57,6 +57,7 @@
   $(document).ready(function () {
     function getParam (param) {
       // let query = 'http://10.0.11.241:8080/app/activityGroup/detailsPurchase?tokenShare=e15cdc24758b4912aeb9cd2cf53d83bc'
+      // let query = 'http://10.0.11.241:8080/app/activityGroup/detailsPurchase?tokenShare=f4fdbd32c2ae43a290b8e3560084c150'
       let query = window.location.search
       let iLen = param.length
       let iStart = query.indexOf(param)
@@ -176,15 +177,15 @@
           // }
           $("#zuyuanPhoto1").attr('src', './img/pingtuan.png')
           const nowTime = new Date().getTime()
-          console.log(nowTime)
-          console.log(nowTime-data.endTime)
+          // data.endTime=1548120047000
           if(nowTime-data.endTime>0){
             $('#pingtuanend').html("已结束")
-            // $(".link-button").attr("disabled",true)
             $(".link-button").off('click')
             $(".link-button").css('background-color', '#DCDCDC')
           } else {
+            differday=Math.floor((data.endTime-nowTime)/(24*60*60*1000))
             timedaojis = new Date(data.endTime)
+            $("#endday").html(differday+'天')
             $('#endTime').countdown(timedaojis, function (event) {
               $(this).html(event.strftime('%H:%M:%S之后'));
             });
