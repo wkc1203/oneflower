@@ -4,7 +4,9 @@ body,
   position: relative;
   height: 100%;
 }
-
+html {
+  font-size: 12px;
+}
 .pages {
   display: flex;
   flex-direction: column;
@@ -118,8 +120,8 @@ body,
 }
 
 #userPhoto, #zuyuanPhoto1 {
-  width: 30px;
-  height: 30px;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 /*立即参团*/
 .btn {

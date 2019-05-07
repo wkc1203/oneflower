@@ -57,7 +57,7 @@
   $(document).ready(function () {
     function getParam (param) {
       // let query = 'http://10.0.11.241:8080/app/activityGroup/detailsPurchase?tokenShare=e15cdc24758b4912aeb9cd2cf53d83bc'
-      // let query = 'http://10.0.11.241:8080/app/activityGroup/detailsPurchase?tokenShare=f4fdbd32c2ae43a290b8e3560084c150'
+      // let query = 'http://47.100.15.152:8080/app/activityGroup/detailsPurchase?tokenShare=3ef08b5304f14366ae5ef38d43068b12'
       let query = window.location.search
       let iLen = param.length
       let iStart = query.indexOf(param)
@@ -166,7 +166,11 @@
             $("#danwei").html('件')
           }
           $("#goodsHeadImg").attr('src', data.goodsHeadImg)
-          $("#userPhoto").attr('src', data.userPhoto)
+          if (data.userPhoto) {
+            $("#userPhoto").attr('src', data.userPhoto)
+          }else{
+            $("#userPhoto").attr('src', './img/pingtuan.png')
+          }
           $('#money').html(data.money)
           // if(data.fullPeople-1>0){
           //   imgs=''
@@ -177,18 +181,25 @@
           // }
           $("#zuyuanPhoto1").attr('src', './img/pingtuan.png')
           const nowTime = new Date().getTime()
-          // data.endTime=1548120047000
+          // data.endTime=1668120047000
           if(nowTime-data.endTime>0){
             $('#pingtuanend').html("已结束")
             $(".link-button").off('click')
             $(".link-button").css('background-color', '#DCDCDC')
           } else {
-            differday=Math.floor((data.endTime-nowTime)/(24*60*60*1000))
-            timedaojis = new Date(data.endTime)
-            $("#endday").html(differday+'天')
-            $('#endTime').countdown(timedaojis, function (event) {
-              $(this).html(event.strftime('%H:%M:%S之后'));
-            });
+            if (data.regimentWay =="1" && data.remainingPeople ==0 || (data.regimentWay =="0" && data.remainingCount == 0)){
+              $('#pingtuanend').html("已拼团成功")
+              $(".link-button").off('click')
+              $(".link-button").css('background-color', '#DCDCDC')
+            }else{
+              differday=Math.floor((data.endTime-nowTime)/(24*60*60*1000))
+              timedaojis = new Date(data.endTime)
+              $("#endday").html(differday+'天')
+              $('#endTime').countdown(timedaojis, function (event) {
+                $(this).html(event.strftime('%H:%M:%S之后'));
+              })
+            }
+
           }
           
         }
