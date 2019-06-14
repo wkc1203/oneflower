@@ -17,34 +17,15 @@
 </div >
 <script type = "text/javascript" src = "./js/jquery.min.js" ></script >
 <script type = "text/javascript" src = "./js/swiper.min.js" ></script >
+<script src="./js/common.js"></script >
 <script type = "text/javascript" >
   $(document).ready(function () {
-    function getUrlParam () {
-      var url        = location.search; //获取url中"?"符后的字串
-      var theRequest = new Object();
-      if (url.indexOf("?") !== -1) {
-        var str = url.substr(1);
-        strs    = str.split("&");
-        for (var i = 0; i < strs.length; i++) {
-          theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-        }
-      }
-      return theRequest;
-    }
-
-    function isTencent () {
-      var ua    = navigator.userAgent.toLowerCase();
-      var isWx  = ua.indexOf('micromessenger') !== -1;
-      var QQRex = new RegExp(/\s+QQ/ig)
-      var isQQ  = QQRex.test(ua)
-
-      return isWx || isQQ
-    }
 
     function skip () {
       const urlData    = getUrlParam()
       const way        = urlData.way ? urlData.way : ''
       const inviteCode = urlData.inviteCode ? urlData.inviteCode : ''
+      const goodsId = urlData.goodsId ? urlData.goodsId : ''
       const url        = way === '1' ? './down-one.html?inviteCode=' + inviteCode : './down-two.html'
       if (isTencent()) {
         return

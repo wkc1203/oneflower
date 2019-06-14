@@ -16,55 +16,10 @@
 </div >
 <script type = "text/javascript" src = "./js/jquery.min.js" ></script >
 <script type = "text/javascript" src = "./js/swiper.min.js" ></script >
+<script src="./js/common.js"></script >
 <script type = "text/javascript" >
   $(document).ready(function () {
-    function getParam (param) {
-      // let query = 'http://10.0.10.36:8080/app/activityGroup/detailsPurchase?tokenShare=e15cdc24758b4912aeb9cd2cf53d83bc'
-      let query = window.location.search
-      let iLen = param.length
-      let iStart = query.indexOf(param)
-      if(iStart == -1) {
-        return ""
-      }
-      iStart += iLen + 1
-      let iEnd = query.indexOf("&", iStart); //获取第二个参数的其实索引
-      if(iEnd == -1) {
-        return query.substring(iStart); //获取单个参数的参数值
-      }
-      return query.substring(iStart, iEnd); //获取第二个参数的值
-    }
-    function getOs () {
-      var os = ''
 
-      const ua      = navigator.userAgent
-      const windows = ua.match(/(Windows Phone);?[\s\/]+([\d.]+)?/)
-      const android = ua.match(/(Android);?[\s\/]+([\d.]+)?/)
-      const ipad    = ua.match(/(iPad).*OS\s([\d_]+)/)
-      const ipod    = ua.match(/(iPod)(.*OS\s([\d_]+))?/)
-      const iphone  = !ipad && ua.match(/(iPhone\sOS|iOS)\s([\d_]+)/)
-
-      if (windows) {
-        os = 'windows'
-      }
-
-      if (android && !windows) {
-        os = 'android'
-      }
-
-      if (ipad || iphone || ipod) {
-        os = 'ios'
-      }
-
-      return os
-    }
-    function isTencent () {
-      var ua    = navigator.userAgent.toLowerCase();
-      var isWx  = ua.indexOf('micromessenger') !== -1;
-      var QQRex = new RegExp(/\s+QQ/ig)
-      var isQQ  = QQRex.test(ua)
-
-      return isWx || isQQ
-    }
     function tiaozhuanOrdown () {
       if (isTencent()) {
         return
@@ -75,7 +30,7 @@
         window.event.returnValue=false
         window.setTimeout(function(){
           window.location.href = ios_download
-        },500)
+        },1000)
       } else {
           if(getParam("platform") =="android"){
              var param={type:"joinPinTuan","tokenShare":tokenShare}
@@ -83,7 +38,10 @@
             var paramstr=getParam('tokenShare')
             window.objJS.gotoJump(paramstr)
           }else{
-            window.location.href = 'ypf://yzyh?tokenShare=' + getParam('tokenShare')
+            window.top.location.href = 'ypf://yzyh?tokenShare=' + getParam('tokenShare')
+             window.setTimeout(function(){
+              window.location.href = android_download
+            },1000)
           }
           // var param={"tokenShare":getParam('tokenShare')}
           // var paramstr=JSON.stringify(param)
@@ -91,7 +49,7 @@
          
           window.setTimeout(function(){
             window.location.href = android_download
-          },500)
+          },1000)
 
       }
     }

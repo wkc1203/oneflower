@@ -22,6 +22,16 @@ body,
   background-clip: content-box;
 }
 
+.contentopenright {
+  /*flex-grow: 1;*/
+  /*background: url("../img/rightopen.png") no-repeat center center;*/
+  display: block;
+  margin: auto;
+  width: 50%;
+  background-size: contain;
+  background-clip: content-box;
+}
+
 .footer {
   flex-shrink: 0;
 }

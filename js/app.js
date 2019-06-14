@@ -1,6 +1,6 @@
 ;$(function () {
   getDetail()
-
+  statistic()
   function getDetail () {
     var data = getUrlParam()
     var goodsId = data.goodsId ? data.goodsId : ''
@@ -83,24 +83,21 @@
 
     $('#reduce').html(html)
   }
-
-  function getUrlParam () {
-    var url        = location.search; //获取url中"?"符后的字串
-    var theRequest = new Object();
-    if (url.indexOf("?") !== -1) {
-      var str = url.substr(1);
-      strs    = str.split("&");
-      for (var i = 0; i < strs.length; i++) {
-        theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-      }
+  function statistic() {
+    var data = getUrlParam();
+    var goodsId = data.goodsId ? data.goodsId : '';
+    if (getOs() === 'ios') {
+        window.location.href ='YZYHAPP://?goodsId=' + goodsId;
+    } else {
+        window.location.href = 'ypf://yzyh?goodsId=' + goodsId;
     }
-    return theRequest;
   }
 
   $('.link-button').on('click', function (e) {
     e.preventDefault()
     var data = getUrlParam()
     var inviteCode = data.inviteCode ? data.inviteCode : ''
-    window.location.href = './down-two.html?inviteCode=' + inviteCode
+    var goodsId = data.goodsId ? data.goodsId : ''
+    window.location.href = './down-two.html?inviteCode=' + inviteCode + '&goodsId=' + goodsId
   })
 })

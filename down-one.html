@@ -29,56 +29,11 @@
 </body >
 <script src = "./js/jquery.min.js" ></script >
 <script src = "./js/swiper.min.js" ></script >
+<script src="./js/common.js"></script >
 <script src = "./js/server.js" ></script >
 <script >
-  function getUrlParam () {
-    var url        = location.search; //获取url中"?"符后的字串
-    var theRequest = new Object();
-    if (url.indexOf("?") !== -1) {
-      var str = url.substr(1);
-      strs    = str.split("&");
-      for (var i = 0; i < strs.length; i++) {
-        theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
-      }
-    }
-    return theRequest;
-  }
 
   $('#inviteCode').html(getUrlParam().inviteCode ? getUrlParam().inviteCode : '')
-
-  function isTencent () {
-    var ua    = navigator.userAgent.toLowerCase();
-    var isWx  = ua.indexOf('micromessenger') !== -1;
-    var QQRex = new RegExp(/\s+QQ/ig)
-    var isQQ  = QQRex.test(ua)
-
-    return isWx || isQQ
-  }
-
-  function getOs () {
-    var os = ''
-
-    const ua      = navigator.userAgent
-    const windows = ua.match(/(Windows Phone);?[\s\/]+([\d.]+)?/)
-    const android = ua.match(/(Android);?[\s\/]+([\d.]+)?/)
-    const ipad    = ua.match(/(iPad).*OS\s([\d_]+)/)
-    const ipod    = ua.match(/(iPod)(.*OS\s([\d_]+))?/)
-    const iphone  = !ipad && ua.match(/(iPhone\sOS|iOS)\s([\d_]+)/)
-
-    if (windows) {
-      os = 'windows'
-    }
-
-    if (android && !windows) {
-      os = 'android'
-    }
-
-    if (ipad || iphone || ipod) {
-      os = 'ios'
-    }
-
-    return os
-  }
 
   $('.link-button').on('click', function (e) {
     e.preventDefault()
@@ -91,9 +46,25 @@
     }
 
     if (getOs() === 'ios') {
-      window.location.href = ios_download
+      if (getParam('goodsId') != '') {
+        window.top.location.href ='YZYHAPP://?goodsId=' + getParam('goodsId')
+        window.setTimeout(function(){
+          window.location.href = ios_download
+        },1000)
+      }
+      window.setTimeout(function(){
+        window.location.href = ios_download
+      },1000)
     } else {
-      window.location.href = android_download
+      if (getParam('goodsId') != '') {
+        window.top.location.href ='ypf://yzyh?goodsId=' + getParam('goodsId')
+        window.setTimeout(function(){
+          window.location.href = ios_download
+        },1000)
+      }
+      window.setTimeout(function(){
+        window.location.href = android_download
+      },1000)
     }
   })
 </script >
