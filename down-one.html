@@ -34,7 +34,36 @@
 <script >
 
   $('#inviteCode').html(getUrlParam().inviteCode ? getUrlParam().inviteCode : '')
+  $(document).ready(function () {
+    if (isTencent()) {
+      // window.location.href = './invent.html?inviteCode=' + inviteCode + '&way=1'
+      return
+    }
 
+    if (getOs() === 'ios') {
+      if (getParam('goodsId') != '') {
+        window.top.location.href ='YZYHAPP://?goodsId=' + getParam('goodsId')
+        window.setTimeout(function(){
+          window.location.href = ios_download
+        },1000)
+      }
+      window.top.location.href ='YZYHAPP://'
+      window.setTimeout(function(){
+        window.location.href = ios_download
+      },1000)
+    } else {
+      if (getParam('goodsId') != '') {
+        window.top.location.href ='ypf://yzyh?goodsId=' + getParam('goodsId')
+        window.setTimeout(function(){
+          window.location.href = ios_download
+        },1000)
+      }
+      window.top.location.href ='ypf://yzyh'
+      window.setTimeout(function(){
+        window.location.href = android_download
+      },1000)
+    }
+  })
   $('.link-button').on('click', function (e) {
     e.preventDefault()
     var urlData    = getUrlParam()
@@ -52,6 +81,7 @@
           window.location.href = ios_download
         },1000)
       }
+      window.top.location.href ='YZYHAPP://'
       window.setTimeout(function(){
         window.location.href = ios_download
       },1000)
@@ -62,6 +92,7 @@
           window.location.href = ios_download
         },1000)
       }
+      window.top.location.href ='ypf://yzyh'
       window.setTimeout(function(){
         window.location.href = android_download
       },1000)

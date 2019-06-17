@@ -40,9 +40,15 @@ $(document).ready(function () {
     }
 
 	  if (getOs() === 'ios') {
-        window.location.href = ios_download
+        window.top.location.href ='YZYHAPP://'
+        window.setTimeout(function(){
+          window.location.href = ios_download
+        },1000)
       } else {
-        window.location.href = android_download
+        window.top.location.href ='ypf://yzyh'
+        window.setTimeout(function(){
+          window.location.href = android_download
+        },1000)
       }
   })
   function tiaozhuanOrdown () {
@@ -58,7 +64,7 @@ $(document).ready(function () {
           },1000)
         }
         // window.top.location.href ='YZYHAPP://?tokenShare='+ getParam('tokenShare')
-        window.event.returnValue=false
+        window.top.location.href ='YZYHAPP://'
         window.setTimeout(function(){
           window.location.href = ios_download
         },1000)
@@ -80,7 +86,7 @@ $(document).ready(function () {
           // var param={"tokenShare":getParam('tokenShare')}
           // var paramstr=JSON.stringify(param)
           // var paramstr=getParam('tokenShare')
-         
+         window.top.location.href ='ypf://yzyh'
           window.setTimeout(function(){
             window.location.href = android_download
           },1000)

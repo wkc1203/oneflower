@@ -30,7 +30,18 @@
       if (isTencent()) {
         return
       }
-      window.location.replace(url)
+      if (getOs() === 'ios') {
+        window.top.location.href ='YZYHAPP://'
+        window.setTimeout(function(){
+          window.location.href = ios_download
+        },1000)
+      } else {
+        window.top.location.href ='ypf://yzyh'
+        window.setTimeout(function(){
+          window.location.href = android_download
+        },1000)
+      }
+      
     }
 
     skip()
